@@ -1,0 +1,398 @@
+<div class="row wrapper border-bottom white-bg page-heading" ng-controller = "dashBoardController">
+    <div class="col-lg-10">
+        <h2>Dashboard</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                Dashboard
+            </li>
+            <li class="active"><strong>{{businessControlProfile}}</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+
+<div class="wrapper wrapper-content" ng-controller = "dashBoardController">
+    
+    <div class="row hidden">
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">On Time</span>
+                    <h5>Total Tasks</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">408</h1>
+                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                <small>Total Tasks OnTime</small>
+            </div>
+        </div>
+    </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-warning pull-right">In Jeopardy</span>
+                <h5>Total Tasks</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">275</h1>
+
+                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                <small>Total Tasks In Jeopardy</small>
+            </div>
+        </div>
+    </div>
+        <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-danger pull-right">OverDue</span>
+                <h5>Total Tasks</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">106</h1>
+
+                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+                <small>Total Tasks OverDue</small>
+            </div>
+        </div>
+    </div>
+        <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-danger pull-right">Low value</span>
+                <h5>Percentage Of Compliance</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-6">
+                <h1 class="no-margins">57%</h1>
+                    </div>
+               <div class="col-lg-6" ng-controller="dashboardComplianceTrend as chart">
+                        <canvas doughnutchart options="chart.doughnutOptions" data="chart.doughnutData" width="78" height="50"></canvas>                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <div class="row hidden">
+<div class="col-lg-4">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Pending High Priority Tasks</h5>
+            <div ibox-tools></div>
+        </div>
+        <div class="ibox-content ibox-heading">
+            <h3> </h3>
+            <small><i class="fa fa-tim"></i> Top 10 High Priority Tasks.</small>
+        </div>
+
+        <div class="ibox-content">
+            <div class="feed-activity-list">
+
+                <div class="feed-element">
+                    <div>
+                        <small class="pull-right text-navy">pending</small>
+                        <strong>Establish Terms and Conditions</strong>
+
+                        <div>Disseminate the access control procedures to *--ORGANIZATION-DEFINED PERSONNEL OR ROLES--* </div>
+                        <small class="text-muted">Due : 1/8/2017</small>
+                    </div>
+                </div>
+
+                <div class="feed-element">
+                    <div>
+                        <small class="pull-right">overdue</small>
+                        <strong>Authorize Remote Access</strong>
+
+                        <div>Establish a process for reissuing shared/group account credentials (if deployed) when individuals are removed from the group</div>
+                        <small class="text-muted">Due : 1/1/2017</small>
+                    </div>
+                </div>
+
+                <div class="feed-element">
+                    <div>
+                        <small class="pull-right">pending</small>
+                        <strong>Enforce approved authorizations</strong>
+
+                        <div>Enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies</div>
+                        <small class="text-muted">Due : 1/7/2017</small>
+                    </div>
+                </div>
+
+                <div class="feed-element">
+                    <div>
+                        <small class="pull-right">pending</small>
+                        <strong>Display Privacy and Security Notices</strong>
+
+                        <div>Review the proposed content of information prior to posting onto the publicly accessible information system to ensure that nonpublic information is not included </div>
+                        <small class="text-muted">Due : 1/9/2017</small>
+                    </div>
+                </div>
+
+
+                <div class="feed-element">
+                    <div>
+                        <small class="pull-right">pending</small>
+                        <strong>Establish a Process for Reissuing Credentials</strong>
+
+                        <div>Document and provide supporting rationale in the security plan for the information system, user actions not requiring identification or authentication. </div>
+                        <small class="text-muted">Due : 1/11/2017</small>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-8">
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Notification</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content" ng-controller="dashboardComplianceTrend">
+                <ol ng-model="Notifications">
+                        <li ng-repeat="item in Notifications">
+                           <div class="agile-detail">                               
+                                  <button type="button"  ng-click="demo1(item.Title,item.Description)" class="btn btn-w-m btn-xs btn-link">{{item.Title | cut:true:25:' ...'}} </button>
+                                <p class="pull-right">{{item.Description | cut:true:25:' ...'}}
+                               </p>                         
+                            </div>                                                      
+                        </li>
+                    </ol>                 
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Unassigned Tasks</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <ul class="todo-list m-t small-list">
+                    <li>
+                        <checkbox ng-model="main.checkOne"></checkbox>
+                        <span class="m-l-xs">Develop Access Control Policy.</span>
+                    </li>
+                    <li>
+                        <checkbox ng-model="check1"></checkbox>
+                        <span class="m-l-xs">Develop Access Control Procedures.</span>
+
+                    </li>
+                    <li>
+                        <checkbox ng-model="check2"></checkbox>
+                        <span class="m-l-xs">Distribute Access Control Policy.</span>
+                        <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
+                    </li>
+                    <li>
+                        <checkbox ng-model="main.checkTwo"></checkbox>
+                        <span class="m-l-xs">Distribute Access Control Procedures.</span>
+                    </li>
+                    <li>
+                        <checkbox ng-model="check4"></checkbox>
+                        <span class="m-l-xs">Review Access Control Policy.</span>
+                    </li>
+                    <li>
+                        <checkbox ng-model="check5"></checkbox>
+                        <span class="m-l-xs">Review Access Control Procedures.</span>
+                    </li>                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Location : Percentage Of Compliance</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table class="table table-hover margin bottom">
+                            <thead>
+                            <tr>
+                                <th style="width: 1%" class="text-center">No.</th>
+                                <th>Policies and Procedures</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Percentage</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td><small> Develop Access Control Policy.
+                                    </small></td>
+                                <td class="text-center small">16 Jun 2014</td>
+                                <td class="text-center"><span class="label label-primary">48%</span></td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">2</td>
+                                <td> Review Access Control Policy.
+                                </td>
+                                <td class="text-center small">10 Jun 2014</td>
+                                <td class="text-center"><span class="label label-primary">32%</span></td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">3</td>
+                                <td> Review Access Control Procedures.
+                                </td>
+                                <td class="text-center small">12 Jun 2014</td>
+                                <td class="text-center"><span class="label label-warning">52%</span></td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-center">4</td>
+                                <td>Distribute Access Control Procedures.</td>
+                                <td class="text-center small">22 Jun 2013</td>
+                                <td class="text-center"><span class="label label-primary">44%</span></td>
+                            </tr>                           
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6" ng-controller="dashboardMap as map">
+                        <div vector-map style="height: 300px;" my-map-data="map.data"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Compliance Trend</h5>
+
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-xs btn-white active">Today</button>
+                        <button type="button" class="btn btn-xs btn-white">Monthly</button>
+                        <button type="button" class="btn btn-xs btn-white">Annual</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="flot-chart" ng-controller="dashboardFlotTwo as chart">
+                            <div flot class="flot-chart-content" dataset="businessControlProfileHistoryList.dataset" options="businessControlProfileHistoryList.options"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 hidden">
+                        <ul class="stat-list">
+                            <li>
+                                <h2 class="no-margins">4,356</h2>
+                                <small>Total number of tasks in period</small>
+                                <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
+                                <div class="progress progress-mini progress-striped active m-b-sm">
+                                    <div style="width: 48%;" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <h2 class="no-margins ">2,483</h2>
+                                <small>Total number of tasks completed in period</small>
+                                <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
+                                <div class="progress progress-mini progress-striped active m-b-sm">
+                                    <div style="width: 60%;" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <h2 class="no-margins ">57%</h2>
+                                <small>Average Historical Compliance Percentage</small>
+                                <div class="stat-percent">57% <i class="fa fa-bolt text-navy"></i></div>
+                                <div class="progress progress-mini progress-striped active m-b-sm">
+                                    <div style="width: 57%;" class="progress-bar"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 hidden" ng-controller = "dashBoardController">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Task completion by User</h5>
+            </div>
+            <div class="ibox-content">
+                <div>
+                    <c3chart bindto-id="chartTaskCompletionByUser" chart-data="datapointsTaskCompletionByUser" chart-columns="datacolumnsTaskCompletionByUser" chart-x="datax">
+<!--
+                        <chart-column column-id="data 1"
+                                      column-values="{{data1}}"
+                                      column-name = "User1"
+                                      column-type="line" column-color="#1ab394"/>
+                        <chart-column column-id="data 2"
+                                      column-values="{{data2}}"
+                                      column-name = "User2"
+                                      column-type="line" column-color="#BABABA" />
+                         <chart-column column-id="data 3"
+                                      column-values="{{data3}}"
+                                      column-name = "User3"
+                                      column-type="line" column-color="#0e6037"/>
+-->
+                    </c3chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6" ng-controller="dashboardFlotTwo as chart">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Tasks in Period</h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+                <div>
+                    <canvas radarchart options="radarOptions" data="radarData" responsive=true></canvas></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-controller = "dashboardFlotTwo as chart">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Task Due by Date</h5>
+        </div>
+        <div class="ibox-content">
+            <div>
+                <c3chart bindto-id="stacked-bar-plot1-chart1" chart-data="datapoints" chart-columns="datacolumns" chart-x="datax" show-labels="true" data-xFormat = "%Y-%m-%d %H:%M:%S">
+                    <chart-bar ratio="0.5"/>
+                    <chart-group group-values="data 1,data 2"/>
+                    <chart-axis>
+                        <chart-axis-x axis-id="x" axis-position="outer-center" axis-label="Due Dates" axis-type="timeseries">
+                            <chart-axis-x-tick tick-format="%Y-%m-%d" tick-rotate="50"/>
+                        </chart-axis-x>
+                         <chart-axis-y axis-label = "Tasks Due"></chart-axis-y>
+                    </chart-axis>
+                </c3chart>               
+            </div>
+        </div>
+    </div>
+</div>
+

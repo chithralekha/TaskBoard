@@ -1,0 +1,140 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()">X</button>
+        <input type="text" class="form-control" name="FilterName" placeholder="Enter Filter Name" ng-model="filterTextFilterName" required />
+    </div> <div class="modal-body">
+    <div class="form-group">
+        <button type="button" class="btn btn-sm btn-info" ng-click="ok()">Save <i class="fa fa-save"></i></button>
+        <button type="button" class="btn btn-sm btn-info hidden" data-toggle="collapse" data-target="#filterDetail">Manage Filter  <i class="fa fa-wrench"></i></button>
+    </div>
+    </div>
+    <div class="modal-footer hidden">
+    </div>
+    
+</div>
+  
+<div class="wrapper wrapper-content animated fadeInRight ecommerce hidden">
+    
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="Name">Title</label>
+                    <input type="text" id="task_title" name="Name" value="" placeholder="Name" class="form-control" ng-model="filterTextName">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="Due Status">Due Status</label>
+                    <input type="text" id="status" name="Due Status" value="" placeholder="Due Status" class="form-control" ng-model="filterTextDueStatus">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="Responsible User">Responsible User</label>
+                    <input type="text" id="responsibleuser" name="Responsible User" value="" placeholder="Responsible User" class="form-control" ng-model="filterTextAssignedTo">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="Business Control Profile">Business Control Profile</label>
+                    <input type="text" id="bcp" name="Business Control Profile" value="" placeholder="Business Control Profile" class="form-control" ng-model="filterTextWorkingSet">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="date_added">Nist Control Family</label>
+                    <input type="text" id="nistcf" name="Nist Control Family" value="" placeholder="Nist Control Family" class="form-control" ng-model="filterTextNistCF">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="date_modified">Nist Baseline</label>
+                    <input type="text" id="nistbaseline" name="Nist Baseline" value="" placeholder="Nist Baseline" class="form-control" ng-model="filterTextNistBaseline">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <button type="button" class="btn btn-sm btn-info" ng-click="ok()">Save changes   <i class="fa fa-save"></i></button>
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#filterDetail">Manage Filter  <i class="fa fa-wrench"></i></button>
+                </div>
+            </div>      
+        </div>
+
+    </div>
+     <div id="filterDetail" class="collapse">
+         
+            <div class="ibox">
+                <div class="ibox-content">
+
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="2">
+                        <thead>
+                        <tr>
+
+                            <th>Filter Name</th>
+                            <th data-hide="phone">Title</th>
+                            <th data-hide="phone">Due Status</th>
+                            <th data-hide="phone">Responsible User</th>
+                            <th data-hide="phone,tablet" >Business Control Profile</th>
+                            <th data-hide="phone">Nist Control Family</th>
+                            <th data-hide="phone">Nist Baseline</th>
+                            <th class="text-right">Action</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="filter in Filters">
+                            <td>
+                                {{filter.FilterName}}
+                            </td>
+                            <td>
+                                {{filter.Params.Name}}
+                            </td>
+                            <td>
+                                {{filter.Params.DueStatus}}
+                            </td>
+                            <td>
+                                {{filter.Params.AssignedTo}}
+                            </td>
+                            <td>
+                                {{filter.Params.WorkingSet}}
+                            </td>
+                            <td>
+                                {{filter.Params.NistControlFamily}}
+                            </td>
+                            <td>
+                                {{filter.Params.NistBaseline}}
+                            </td>
+                            <!--
+                            <td>
+                                <span class="label label-primary">Pending</span>
+                            </td>
+-->
+                            <td>
+                            
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group">
+<!--                                    <button class="btn-white btn btn-xs">View</button>-->
+                                    <button class="btn-white btn btn-xs" ng-click="edit(filter.FilterName,filter.Params.Name,filter.Params.DueStatus,filter.Params.AssignedTo,filter.Params.WorkingSet,filter.Params.NistControlFamily,filter.Params.NistBaseline)">Edit</button>
+                                    <button class="btn-white btn btn-xs" ng-click="delete(filter.FilterName)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <ul class="pagination pull-right"></ul>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+            </div>
+    </div>
+</div>
+

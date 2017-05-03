@@ -1,0 +1,100 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Business Control Profiles</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html#/dashboards/Home">Home</a>
+            </li>
+            <li>
+                Dashboards
+            </li>
+            <li class="active"><strong>Profiles</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<!-- New York, Chiago, Seattle, Dallas,  -->
+<div class="wrapper wrapper-content  animated fadeInRight" ng-controller= "homeController">
+<!--
+     <div class="ibox float-e-margins">
+         <div class="ibox-title">
+            <h5>Business Control Profiles</h5>                
+        </div>
+         <div class="ibox-content">
+-->
+<div class="row" style="margin-top:20px; margin-left:5px;" ng-repeat="item in businessControlProfileList">
+        
+        
+        <div class="ibox float-e-margins col-lg-8">
+            <div class="ibox-title">
+                <span class="label label-primary pull-right" ng-click="complianceScore(item)"></span>
+                <h5>{{item.name}}</h5>                
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                <div class="col-lg-6">
+                        <c3chart bindto-id="gauge-plot{{item.workingSetId}}-chart">
+                            <chart-column column-id="Data 1" column-color="{{item.color}}"
+                                          column-values="{{item.compliance}}"
+                                          column-type="gauge"/>
+                            <chart-gauge min="0"
+                                         max="100"
+                                         units="Score"/>
+                             <chart-events on-click-data="showClick(item)"/>
+                        </c3chart>
+                    </div>
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="label label-primary pull-right" ng-click="complianceScore(item)">?</span>
+                            <h5>Control Catalogues</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div>
+                                <ul class="list-group clear-list m-t" ng-repeat="cs in item.workingSetTemplate.controlSets | limitTo:4" ng-init="outerIndex = $index">
+                                    <li class="list-group-item">
+                                        <span class="label label-success">{{outerIndex + 1}}</span>
+                                        <span class="pull-right">{{cs.code}}</span>
+                                        <span class="label label-success"></span>{{cs.title |  cut:true:10:' ...' }}
+                                    </li>                                     
+                                </ul>
+                                <ul class="list-group clear-list m-t">
+                                    <li class="list-group-item">
+                                        <span class="label label-primary pull-right">More....</span>
+                                    </li>                                     
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="label label-primary pull-right" ng-click="complianceScore(item)"></span>
+                            <h5>Users</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <ul class="list-group clear-list m-t" ng-repeat="user in item.users | limitTo:4">
+<!--                                    <li class="list-group-item fist-item">-->
+                                <li class="list-group-item clear-list">
+                                    <span class="label label-success"></span>{{user.userName}}
+                                </li>
+                            </ul>
+                            <ul class="list-group clear-list m-t">
+                                <li class="list-group-item">
+                                    <span class="label label-primary pull-right">More....</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+       
+    
+     
+    </div>
+<!--
+              </div>
+</div>-->

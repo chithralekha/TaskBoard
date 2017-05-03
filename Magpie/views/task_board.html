@@ -1,0 +1,190 @@
+<div class="row wrapper border-bottom white-bg page-heading" ng-controller="taskBoard">
+    <div class="col-lg-10">
+        <h2>Task Board</h2>
+        <ol class="breadcrumb">
+            <li>
+                Home
+            </li>
+            <li>
+                Task Board
+            </li>
+            <li class="active"><strong>{{businessControlProfile}}</strong></li>
+        </ol>
+    </div>
+    <div class="col-lg-2"></div>
+</div>
+<div class="wrapper wrapper-content  animated fadeInRight" ng-controller="taskBoard">
+<div class="row">
+    <div class="input-group col-lg-12">
+        <div class="row">
+            <div class ="col-lg-11">
+                <div id="filterBar" class="collapse">
+                    <div class="col-lg-12 well well-sm">
+                        
+                        <div class="col-lg-2">
+                            <select class="form-control m-b" style="font-size : 12px" name="Control Catalogue" ng-model="controlCatalogue" placeholder="Catalogues">
+                                <option style="font-size : 12px" ng-selected="{{defaultvalue == item.id}}" ng-repeat="item in controlCatalogueList" value="{{item.id}}">{{item.title}}</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-lg-2 hidden">
+                            <input type="text" placeholder="Control or Code" class="input input-sm form-control" ng-model="controlOrCode">
+                        </div>
+                        
+                        <div class="col-lg-2">
+                            <input type="text" placeholder="Control /Task Title or Code" class="input form-control" style="font-size : 12px" ng-model="taskOrCode">
+                        </div>
+                        
+                        <div class="col-lg-2 form-group-sm">
+                            <ui-select ng-model="responsibleUserList.selected" theme="bootstrap">
+                                <ui-select-match placeholder="Users">{{$select.selected.firstName}}</ui-select-match>
+                                <ui-select-choices  repeat="item in responsibleUserList | filter: $select.search">
+                                    <div ng-bind-html="item.firstName | highlight: $select.search"></div>
+                                    <small ng-bind-html="item.userName | highlight: $select.search"></small>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        
+                        <div class="col-lg-3">
+                            <input date-range-picker class="form-control date-picker input-sm" style="font-size : 12px" type="text" ng-model="daterange" placeholder="Due Range" />
+                            <input type="text" placeholder="Due Range" class="input input-sm form-control hidden" ng-model="daterange.startDate">
+                            <input type="text" placeholder="Due Range" class="input input-sm form-control hidden" ng-model="daterange.endDate">
+                        </div>
+                        
+                        <div class="col-lg-2">
+                            <select class="form-control m-b input-sm" style="font-size : 12px" name="Due Status" ng-model="dueStatus" placeholder="Due Status">
+                                <option style="font-size : 12px" ng-repeat="item in dueStatusList" value="{{item.Value}}">{{item.Name}}</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-lg-1">
+                            <button type="button" class="btn btn-w-m btn-xs btn-link pull-right hidden" style="margin-top:5px;" ng-click="openFilterDialog(controlCatalogue,responsibleUserList.selected,daterange.startDate,daterange.endDate,dueStatus)">Save Current Filter</button>
+                        </div>
+                        
+                        <div class="col-lg-2">
+                            <span class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-xs btn-white active hidden" ng-click="openFilterDialog(controlCatalogue,responsibleUserList.selected,daterange.startDate,daterange.endDate,dueStatus)">Save Filter  <i class="fa fa-save"></i></button>
+                                    <button type="button" class="btn btn-xs btn-white hidden" ng-click="openFilterDialog(controlCatalogue,responsibleUserList.selected,daterange.startDate,daterange.endDate,dueStatus)">Edit Filter<i class="fa fa-pencil"></i></button>
+                                </div>
+                            </span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 pull-right">
+                <button type="button" class="btn btn-sm btn-info pull-right" data-toggle="collapse" data-target="#filterBar"><i class="fa fa-filter"></i></button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+        <!--
+         
+         <div class="form-group col-xs-12 col-sm-12" ng-show="addEditTasks">
+             <caption><h3> Add/Edit Tasks</h3></caption>
+             <input type="text" class="form-control" name="TaskTitle" ng-model="TaskTitle" placeholder="Task Title" required />
+        </div>
+        -->
+       
+        <!--
+        <div class="col-md-5 col-md-offset-1">
+         <div class="collapse in" id="collapseExample">
+            <div class="well">
+             <h3>Some CollapsibleContent </h3>
+                <p>Some text and toggled with the button on the right click</p>
+             </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+        <a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Toggle Info
+            </a>
+        </div>
+        -->
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>New</h3>
+                    <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
+                    <div class="input-group">
+                        <input type="text" placeholder="Add new task. " class="input input-sm form-control" ng-model="taskTitle">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-white" ng-click="openTaskDetailsDialog()"> <i class="fa fa-plus"></i> Add task</button>
+                        </span>
+                    </div>
+                    <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="todoList">
+                        <li ng-class="taskDueStatusClass(task)" ng-repeat="task in todoList  | freeFormat : taskOrCode | dateRange:daterange.startDate :daterange.endDate | responsibleUser : responsibleUserList.selected | controlCatalogue : controlCatalogue | filter : { title: filterText.name || task, dueStatus : { id : dueStatus }}">
+                            <div class="agile-detail">
+                                <button type="button"  ng-click = "openTaskDetailsDialog(task)" class="btn btn-w-m btn-xs btn-link">{{task.title | cut:true:25:' ...'}} </button>
+                                <p class="pull-right"><i class="fa fa-clock-o"></i>{{task.due|date}}</p>
+                            </div>
+                            <div class="agile-detail">
+                                {{task.code}}
+                                <p class="pull-right">{{task.responsibleUser.firstName}}</p>                        
+                            </div>   
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>Active</h3>
+                    <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
+                    <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="inProgressList">
+                        <li ng-class="taskDueStatusClass(task)"  ng-repeat="task in inProgressList | freeFormat : taskOrCode | dateRange:daterange.startDate :daterange.endDate | responsibleUser : responsibleUserList.selected | controlCatalogue : controlCatalogue | filter : { title: filterText.name || task, dueStatus : { id : dueStatus }}">
+                           <div class="agile-detail">                               
+                                  <button type="button" ng-click = "openTaskDetailsDialog(task)" class="btn btn-w-m btn-xs btn-link">{{task.title | cut:true:25:' ...'}} </button>
+                                <p class="pull-right"><i class="fa fa-clock-o"></i>{{task.due|date}}</p>                         
+                            </div>  
+                            <div class="agile-detail">                               
+                                  {{task.code}}
+                                <p class="pull-right">{{task.responsibleUser.firstName}}</p>                         
+                            </div>                           
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>Completed</h3>
+                    <p class="small"><i class="fa fa-hand-o-up"></i> Drag task between list</p>
+                    <ul ui-sortable="sortableOptions" class="sortable-list connectList agile-list" ng-model="completedList">
+                        <li ng-class="taskDueStatusClass(task)" enableStatus(task) ng-repeat="task in completedList  | freeFormat : taskOrCode | dateRange:daterange.startDate :daterange.endDate | responsibleUser : responsibleUserList.selected | controlCatalogue : controlCatalogue | filter : { title: filterText.name || task, dueStatus : { id : dueStatus }}">
+                            <div class="agile-detail">
+                                <button type="button"  ng-click = "openTaskDetailsDialog(task)" class="btn btn-w-m btn-xs btn-link">{{task.title | cut:true:25:' ...'}} </button>
+                                <p class="pull-right"><i class="fa fa-clock-o"></i>{{task.due|date}}</p>
+                            </div>
+                            <div class="agile-detail">
+                                {{task.code}}
+                                <p class="pull-right">{{task.responsibleUser.firstName}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="col-lg-12">
+            <h4>
+                Serialised Output
+            </h4>
+            <div class="output p-m m white-bg">
+                <h3>TodDo tasks</h3>
+                {{todoList }}
+                <h3>In progress tasks</h3>
+                {{inProgressList }}
+                <h3>Completed tasks</h3>
+                {{completedList }}
+            </div>
+        </div>
+    </div> -->
+</div>
