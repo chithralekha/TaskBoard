@@ -14,7 +14,7 @@
         'ngResource'
     ])
         .constant('Config', {
-            baseURL : 'http://localhost:3706/api/',
+            baseURL : 'http://magpie-sandbox-api.us-west-2.elasticbeanstalk.com/api/',
             authURL : 'http://localhost:50443/',
             oldTroutBaseURL : 'http://ec2-35-164-78-65.us-west-2.compute.amazonaws.com/OldTrout/Landing/index?n='
         })
