@@ -2174,8 +2174,8 @@ function loginCtrl($scope, $http, $state, authenticationService, Authorization) 
     }
         
     function goToMain() {
-        Authorization.go('dashboards.Home');
-//        $state.go('dashboards.Home');
+      //  Authorization.go('dashboards.Home');
+        $state.go('miscellaneous.task_board');
     }
     
     function loginError(errorMsg) {     
