@@ -1456,7 +1456,7 @@ function sideBar($scope, $http,$uibModal,$stateParams,filterService,$filter,task
 }
 
 /**
- * businessControlProfile  - Controller for Business Control Profiles-agile Board
+ * businessControlProfile  - Controller for Business Control Profiles-task Board
  */
 function businessControlProfile($scope, $http,$uibModal,$stateParams,filterService,workingSetWebAPIService) {
     $scope.workingSetList = workingSetWebAPIService.getData();
@@ -1588,7 +1588,7 @@ function raciTeam($scope, $http,$uibModal,$stateParams,filterService,$filter,tas
 }
 
 /**
- * agileBoard - Controller for agile Board view
+ * taskBoard - Controller for task Board view
  */
 function ModalInstanceCtrl ($scope,$http,$uibModalInstance,filterService,$filter,filterWebAPIService,$interpolate,responsibleUserService,Config,$stateParams) {
 
