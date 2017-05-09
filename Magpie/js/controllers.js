@@ -18,368 +18,11 @@
  *
  */
 function MainCtrl() {
-
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
      */
     this.daterange = {startDate: null, endDate: null};
-
-
 };
-
-
-/**
- * dashboardFlotOne - simple controller for data
- * for Flot chart in Dashboard view
- */
-function dashboardFlotOne() {
-}
-
-/**
- * homeController - for all workingSets 
- */
-function homeController($scope,$stateParams,$state,$http,filterService,workingSetWebAPIService,$uibModal) {
-    $scope.workingSetList = workingSetWebAPIService.getData();
-    $scope.workingSetList.then (function (response) {
-        $scope.businessControlProfileList  = response.data;
-//        alert($scope.businessControlProfileList[0].controlSets);
-        $scope.controlSets = $scope.businessControlProfileList.controlSets;
-//        alert($scope.controlSets);
-        angular.forEach($scope.businessControlProfileList, function (item) {
-            if(item.compliance <= 50)
-                {
-                    item.color = "#682c25";
-                }
-            else if (item.compliance > 50 && item.compliance <= 60)
-                {
-                    item.color = "#dda33e";     
-                }
-            else if (item.compliance > 60 && item.compliance <= 70 )
-                {
-                    item.color = "#1ab394";
-                }
-            else if (item.compliance > 70 && item.compliance <= 80)
-                {
-                    item.color = "#1ab394";
-                }
-            else if (item.compliance > 80 && item.compliance <= 90)
-                {
-                    item.color = "#0e6037";
-                }
-            else {
-                item.color = "#02512a";
-            }
-        })
-
-       // alert($scope.BusinessControlProfileList);
-        $scope.determineColor = function(color)
-        {
-           // alert(color);
-            return color;
-        }
-        $scope.color = '#1ab394';
-        console.log($scope.businessControlProfileList[0]);
-        $scope.clicked = {};
-        $scope.showClick = function(bcp) {
-            //$scope.clicked = data;
-           // alert(bcp.name);
-            $state.go('dashboards.dashboardSingleWorkingSet', {obj: bcp});
-        }
-    });
-    $scope.complianceScore = function(workingSet){
-        $scope.workingSetName = workingSet.name;
-        var modalInstance = $uibModal.open( {
-            templateUrl : 'views/complianceScore.html',
-            size : 'sm',
-            scope : $scope,
-            controller : complianceScoreCtrl
-        });
-    };
-}
-/**
- * dashboardFlotTwo - simple controller for data
- * for Flot chart in Dashboard view
- */
-function dashboardFlotTwo($scope,$stateParams,$state,$http,filterService,workingSetHistoryService,$uibModal) {
-    
-     
-}
-
-function complianceScoreCtrl($scope,$http,$uibModalInstance,filterService,$filter,filterWebAPIService,$interpolate,responsibleUserService,Config) {
-    
-    //alert($scope.workingSetName);
-}
-
-/**
- * dashBoardController - for single workingSet
- */
-function dashBoardController($scope,$stateParams,$state,$http,filterService,workingSetWebAPIService) {
-}
-
-/**
- * dashboardRACIPerformance - simple controller for data
- * for RACI performance in Dashboards
- */
-function dashboardRACIPerformance($scope, SweetAlert){
-}
-
-/**
- * dashboardComplianceTrend - simple controller for data
- * for ComplianceTrend in Dashboards
- */
-
-function dashboardComplianceTrend($scope, SweetAlert) {
-
-}
-
-
-/**
- * dashboardFlotFive - simple controller for data
- * for Flot chart in Dashboard view
- */
-function dashboardFive() {
-
-}
-
-
-/**
- * dashboardMap - data for Map plugin
- * used in Dashboard 2 view
- */
-
-function dashboardMap() {
-    var data = {
-        "US": 298
-//        "SA": 200,
-//        "DE": 220,
-//        "FR": 540,
-//        "CN": 120,
-//        "AU": 760,
-//        "BR": 550,
-//        "IN": 200,
-//        "GB": 120
-    };
-
-    this.data = data;
-}
-
-/**
- * modalDemoCtrl - Controller used to run modal view
- * used in Basic form view
- */
-function modalDemoCtrl($scope, $uibModal) {
-
-    $scope.open = function () {
-
-        var modalInstance = $uibModal.open({
-            templateUrl: 'views/modal_example.html',
-            controller: ModalInstanceCtrl
-        });
-    };
-
-    $scope.open1 = function () {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'views/modal_example1.html',
-            controller: ModalInstanceCtrl
-        });
-    };
-
-    $scope.open2 = function () {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'views/modal_example2.html',
-            controller: ModalInstanceCtrl,
-            windowClass: "animated fadeIn"
-        });
-    };
-
-    $scope.open3 = function (size) {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'views/modal_example3.html',
-            size: size,
-            controller: ModalInstanceCtrl
-        });
-    };
-
-    $scope.open4 = function () {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'views/modal_example2.html',
-            controller: ModalInstanceCtrl,
-            windowClass: "animated flipInY"
-        });
-    };
-};
-
-/**
- * ionSlider - Controller for data for Ion Slider plugin
- * used in Advanced plugin view
- */
-function ionSlider() {
-    this.ionSliderOptions1 = {
-        min: 0,
-        max: 5000,
-        type: 'double',
-        prefix: "$",
-        maxPostfix: "+",
-        prettify: false,
-        hasGrid: true
-    };
-    this.ionSliderOptions2 = {
-        min: 0,
-        max: 10,
-        type: 'single',
-        step: 0.1,
-        postfix: " carats",
-        prettify: false,
-        hasGrid: true
-    };
-    this.ionSliderOptions3 = {
-        min: -50,
-        max: 50,
-        from: 0,
-        postfix: "°",
-        prettify: false,
-        hasGrid: true
-    };
-    this.ionSliderOptions4 = {
-        values: [
-            "January", "February", "March",
-            "April", "May", "June",
-            "July", "August", "September",
-            "October", "November", "December"
-        ],
-        type: 'single',
-        hasGrid: true
-    };
-    this.ionSliderOptions5 = {
-        min: 10000,
-        max: 100000,
-        step: 100,
-        postfix: " km",
-        from: 55000,
-        hideMinMax: true,
-        hideFromTo: false
-    };
-}
-
-/**
- * wizardCtrl - Controller for wizard functions
- * used in Wizard view
- */
-function wizardCtrl($scope, $rootScope) {
-    // All data will be store in this object
-    $scope.formData = {};
-
-    // After process wizard
-    $scope.processForm = function() {
-        alert('Wizard completed');
-    };
-
-}
-
-/**
- * chartJsCtrl - Controller for data for ChartJs plugin
- * used in Chart.js view
- */
-function chartJsCtrl() {
-
-}
-
-/**
- * userProfile - Controller for User Profile
- */
-function userProfile($scope,authenticationService,USER_ROLES,Config,userService) {
-    var userData = null, isAuthorizedUser = false, userProfile = null;
-    if (sessionStorage.userData != null) {
-        userData = JSON.parse(sessionStorage.userData);    
-        if (userData != null) {
-            if (!userData.isAuthenticated) {
-                userData = null;
-            }
-        }
-    }
-    
-    if (userData == null) {
-            userData = authenticationService.getUserData();
-            sessionStorage.userData = JSON.stringify(userData);
-    }
-    
-    $scope.userName = userData.username; 
-    $scope.userRoles = USER_ROLES;    
-    $scope.currentUser = userService.getUserProfile(userData.bearerToken);
-    $scope.currentUser.then (function (response) {
-        $scope.userProfile = response.data;
-        // alert($scope.userProfile);
-        console.log($scope.userProfile);
-        sessionStorage.userProfile = JSON.stringify($scope.userProfile);
-        $scope.currentUserRoles = $scope.userProfile.roles.join();
-    });
- if(sessionStorage.userProfile != null) {
-     $scope.currentUserProfile = JSON.parse(sessionStorage.userProfile);
-     if($scope.currentUserProfile != null)
-         {
-             if($scope.currentUserProfile.roles != null)
-                 $scope.currentUserRoles = $scope.currentUserProfile.roles.join();
-         }
-     
- }
-    else
-        {
-            $scope.currentUserRoles = 'none';
-        } 
-    $scope.isAuthorized = function (authorizedRoles) {
-       // alert(authorizedRoles);
-        isAuthorizedUser = false;
-                if (!angular.isArray(authorizedRoles)) {
-                  authorizedRoles = [authorizedRoles];
-                }
-//        alert(userData.userRole);
-//        var val = userData.isAuthenticated && authorizedRoles.indexOf(userData.userRole) !== -1 ;
-//        alert(val);
-  //      alert(authorizedRoles);
-        if(userData.isAuthenticated) {
-            if(sessionStorage.userProfile != null)
-                {
-           var userProfile = JSON.parse(sessionStorage.userProfile); 
-                    if(userProfile != null)
-                        {
-            angular.forEach(userProfile.roles, function (item) {
-                if(authorizedRoles.indexOf(item) !== -1) {
-                    isAuthorizedUser = true;
-                }
-            });
-                        }
-                }
-        }
-        //alert(isAuthorizedUser);
-        return(isAuthorizedUser)
-    };
-    $scope.oldMagpieBaseLink = Config.oldTroutBaseURL + $scope.userName + "&id=B1AB60A1-BB56-4CC3-B4A2-85833C278C08";
-    console.log($scope.oldMagpieBaseLink);
-}
-
-/**
- * oldMagpieApp - Controller for Old Magpie App
- */
-function oldMagpieApp($scope,Config) {
-    var userName;
-    
-    if (!angular.isUndefined($scope.userName))
-    {
-        if ($scope.userName.length > 0 ) {
-            userName = $scope.userName;
-        }
-    }
-    
-    if (angular.isUndefined(userName)) {
-        if (sessionStorage.userData != null) {
-            userData = JSON.parse(sessionStorage.userData);    
-            if (userData != null) {
-                userName =  userData.username;
-            }
-        }    
-    }        
-   
-}
 
 
 /**
@@ -390,21 +33,18 @@ function sideBar($scope, $http,$uibModal,$stateParams,filterService,$filter,task
     $scope.filtersList1 = filterService.getFilters();
     $timeout(function () { $scope.count = filterService.getCount(); });
 //    alert($scope.Count);
-    if(filterService.getCount >= 1)
-        {
-            //            alert(filterService.getCount);
-     $timeout(function () { $scope.initializing = false; });
-        }
-//    alert($scope.FiltersList1);
-    $scope.tasksList= tasksService.getTasks();    
+    if(filterService.getCount >= 1) {
+        //alert(filterService.getCount);
+        $timeout(function () { $scope.initializing = false; });
+    }
+    //alert($scope.FiltersList1);
+    $scope.tasksList= tasksService.getTasks();
     $scope.changeInFilterCount = function () {
-       if (filterService.getCount >= 1)
-           {
+       if (filterService.getCount >= 1) {
                return true;
-           }
-       else {
+           } else {
            return false;
-       }
+           }
     }
     $scope.FiltersList = filterWebAPIService.getData();
     $scope.FiltersList.then (function (response) {
@@ -415,14 +55,14 @@ function sideBar($scope, $http,$uibModal,$stateParams,filterService,$filter,task
         //alert($scope.Count);
         $scope.numberOfTasksByFilterName = function (filter) {
             var count = 0;
-//           alert($stateParams.bcp);
+            //alert($stateParams.bcp);
             angular.forEach(filter.taskFilterResultCounts, function (item) {
-                        if (item.workingSetId == $stateParams.bcp) {
-                            count = item.count;
-//                            alert(count);
-                        }
+                if (item.workingSetId == $stateParams.bcp) {
+                    count = item.count;
+                    //alert(count);
+                }
             });
-//                         alert(count);
+            //alert(count);
             return count;
         };
         //alert(tasksService.getTasksByCategory('NewUserTasks').Tasks);
@@ -449,13 +89,6 @@ function businessControlProfile($scope, $http,$uibModal,$stateParams,filterServi
 }
 
 /**
-raciTeam - Controller for RACI Team (teams_board) View
-*/
-function raciTeam($scope, $http,$uibModal,$stateParams,filterService,$filter,tasksService)
-{
-}
-
-/**
  * taskBoard - Controller for task Board view
  */
 function ModalInstanceCtrl ($scope,$http,$uibModalInstance,filterService,$filter,filterWebAPIService,$interpolate,responsibleUserService,Config,$stateParams) {
@@ -474,7 +107,7 @@ function ModalInstanceCtrl ($scope,$http,$uibModalInstance,filterService,$filter
     //task Save
     $scope.ok = function() {
         //alert($scope.dialogTask.Id);
-//        alert($scope.id);
+        //alert($scope.id);
          console.log('schedule: ', $scope.comment);
         var exp = $interpolate(Config.baseURL + 'Tasks/{{id}}', false, null, true),
             url = exp({id: $scope.dialogTask.id});
@@ -527,9 +160,9 @@ function ModalInstanceCtrl ($scope,$http,$uibModalInstance,filterService,$filter
         
 
         var res;
-//                alert($scope.dialogTask.Title);
+        //alert($scope.dialogTask.Title);
         if(angular.isUndefined($scope.dialogTask.id) || $scope.dialogTask.id == null || $scope.dialogTask.id == 0) {
-            //              alert('post');
+            //alert('post');
             res = $http.post(Config.baseURL + 'Tasks/',$scope.dialogTask);
         } else {
             res = $http.put(url,$scope.dialogTask);
@@ -549,31 +182,26 @@ function ModalInstanceCtrl ($scope,$http,$uibModalInstance,filterService,$filter
             
             $http.get(url).then (function(response) {
                 $scope.dialogTask = response.data;
-                
-        //    $scope.dialogTask.id = data.data.id;
+                //$scope.dialogTask.id = data.data.id;
             if(isNewTask == true) {
                 //add new task
                 $scope.todoList.push($scope.dialogTask);
-            } 
-//                else {
+            }
+                //else {
             console.log('data...',data.data);
             //alert(data.data);
-                
                 //Client side update
-                angular.forEach($scope.todoList, function (item) {                    
+                angular.forEach($scope.todoList, function (item) {
                     if (item.id == $scope.dialogTask.id) {
-                        
                         $scope.assignUpdatedValuesOnClientSide(item, $scope.dialogTask);
                         if(item.taskState.id !== 1) {
                             $scope.updateTaskCategory(item, 'todoList');
-                            
                         }
                     }
                 });
                 
                 angular.forEach($scope.inProgressList, function (item) {
-                    if (item.id == $scope.dialogTask.id) {
-                        
+                    if (item.id == $scope.dialogTask.id) {                        
                         $scope.assignUpdatedValuesOnClientSide(item, $scope.dialogTask);
                         if(item.taskState.id !== 2) {
                             $scope.updateTaskCategory(item, 'inProgressList');
@@ -582,22 +210,20 @@ function ModalInstanceCtrl ($scope,$http,$uibModalInstance,filterService,$filter
                 });
                 
                 angular.forEach($scope.completedList, function (item) {
-                 if (item.id == $scope.dialogTask.id) {
-                     
+                 if (item.id == $scope.dialogTask.id) {                     
                      $scope.assignUpdatedValuesOnClientSide(item, $scope.dialogTask);
                      if(item.taskState.id !== 3) {
                          $scope.updateTaskCategory(item, 'completedList');
                      }
                  }
-             });
-//            }
+                });
+                //}
             });
-        
-        res.catch(function(data, status, headers, config) {
-			console.log('failure message:',JSON.stringify({data: data}));
-		});
-        $uibModalInstance.close($scope.schedule);            
-//            alert($scope.dialogTask.raciTeam.responsibleUser.firstName);
+            res.catch(function(data, status, headers, config) {
+                console.log('failure message:',JSON.stringify({data: data}));
+            });
+            $uibModalInstance.close($scope.schedule);
+            //alert($scope.dialogTask.raciTeam.responsibleUser.firstName);
         });
     };
     
@@ -606,16 +232,16 @@ function ModalInstanceCtrl ($scope,$http,$uibModalInstance,filterService,$filter
     };
     $scope.assignUpdatedValuesOnClientSide = function (task, updatedTask, source) {
         task.title = updatedTask.title;
-//        alert(task.responsibleUser);
+        //alert(task.responsibleUser);
         //Update has assignedUser
         if(!angular.isUndefined(updatedTask.raciTeam.responsibleUser) && updatedTask.raciTeam.responsibleUser !== null) {
             //Old value was unassigned
             if(angular.isUndefined(task.responsibleUser) || task.responsibleUser == null) {
-//                alert('ResponsibleUser null');
+                //alert('ResponsibleUser null');
                 task.responsibleUser = { id : updatedTask.raciTeam.responsibleUser.id };
                 task.responsibleUser = updatedTask.raciTeam.responsibleUser;
             } else { //Old value was assigned
-//                alert('Assign');
+                //alert('Assign');
                 task.responsibleUser.firstName = updatedTask.raciTeam.responsibleUser.firstName;
                 task.responsibleUser = updatedTask.raciTeam.responsibleUser;
             }
@@ -763,7 +389,7 @@ function taskBoard($scope, $http, $uibModal, $stateParams, filterService, $filte
                 var currentUser = userProfile.id;
             }
         }
-//        alert(currentUser);
+        //alert(currentUser);
         var defaultUser = {
                 id : 0,
                 email : ' ',
@@ -784,7 +410,7 @@ function taskBoard($scope, $http, $uibModal, $stateParams, filterService, $filte
                 { Name : 'In Progress', Value : 2 },
                 { Name : 'New', Value : 1 },
                 { Name : 'Completed', Value : 3 }];
-//           alert(task.id);
+        //alert(task.id);
    
         if(angular.isUndefined(task) || task === null )
             {
@@ -1001,6 +627,305 @@ function taskBoard($scope, $http, $uibModal, $stateParams, filterService, $filte
             }
         };
     });
+}
+
+
+/**
+ * dashboardFlotOne - simple controller for data
+ * for Flot chart in Dashboard view
+ */
+function dashboardFlotOne() {
+}
+
+/**
+ * homeController - for all workingSets 
+ */
+function homeController($scope,$stateParams,$state,$http,filterService,workingSetWebAPIService,$uibModal) {
+    $scope.workingSetList = workingSetWebAPIService.getData();
+    $scope.workingSetList.then (function (response) {
+        $scope.businessControlProfileList  = response.data;
+//        alert($scope.businessControlProfileList[0].controlSets);
+        $scope.controlSets = $scope.businessControlProfileList.controlSets;
+//        alert($scope.controlSets);
+        angular.forEach($scope.businessControlProfileList, function (item) {
+            if(item.compliance <= 50)
+                {
+                    item.color = "#682c25";
+                }
+            else if (item.compliance > 50 && item.compliance <= 60)
+                {
+                    item.color = "#dda33e";     
+                }
+            else if (item.compliance > 60 && item.compliance <= 70 )
+                {
+                    item.color = "#1ab394";
+                }
+            else if (item.compliance > 70 && item.compliance <= 80)
+                {
+                    item.color = "#1ab394";
+                }
+            else if (item.compliance > 80 && item.compliance <= 90)
+                {
+                    item.color = "#0e6037";
+                }
+            else {
+                item.color = "#02512a";
+            }
+        })
+
+       // alert($scope.BusinessControlProfileList);
+        $scope.determineColor = function(color)
+        {
+           // alert(color);
+            return color;
+        }
+        $scope.color = '#1ab394';
+        console.log($scope.businessControlProfileList[0]);
+        $scope.clicked = {};
+        $scope.showClick = function(bcp) {
+            //$scope.clicked = data;
+           // alert(bcp.name);
+            $state.go('dashboards.dashboardSingleWorkingSet', {obj: bcp});
+        }
+    });
+    $scope.complianceScore = function(workingSet){
+        $scope.workingSetName = workingSet.name;
+        var modalInstance = $uibModal.open( {
+            templateUrl : 'views/complianceScore.html',
+            size : 'sm',
+            scope : $scope,
+            controller : complianceScoreCtrl
+        });
+    };
+}
+/**
+ * dashboardFlotTwo - simple controller for data
+ * for Flot chart in Dashboard view
+ */
+function dashboardFlotTwo($scope,$stateParams,$state,$http,filterService,workingSetHistoryService,$uibModal) {
+    
+}
+
+function complianceScoreCtrl($scope,$http,$uibModalInstance,filterService,$filter,filterWebAPIService,$interpolate,responsibleUserService,Config) {
+    //alert($scope.workingSetName);
+}
+
+/**
+ * dashBoardController - for single workingSet
+ */
+function dashBoardController($scope,$stateParams,$state,$http,filterService,workingSetWebAPIService) {
+}
+
+/**
+ * dashboardRACIPerformance - simple controller for data
+ * for RACI performance in Dashboards
+ */
+function dashboardRACIPerformance($scope, SweetAlert){
+}
+
+/**
+ * dashboardComplianceTrend - simple controller for data
+ * for ComplianceTrend in Dashboards
+ */
+
+function dashboardComplianceTrend($scope, SweetAlert) {
+
+}
+
+/**
+ * dashboardFlotFive - simple controller for data
+ * for Flot chart in Dashboard view
+ */
+function dashboardFive() {
+    
+}
+
+/**
+ * dashboardMap - data for Map plugin
+ * used in Dashboard 2 view
+ */
+function dashboardMap() {
+    
+}
+
+/**
+ * modalDemoCtrl - Controller used to run modal view
+ * used in Basic form view
+ */
+function modalDemoCtrl($scope, $uibModal) {
+
+    $scope.open = function () {
+
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/modal_example.html',
+            controller: ModalInstanceCtrl
+        });
+    };
+
+    $scope.open1 = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/modal_example1.html',
+            controller: ModalInstanceCtrl
+        });
+    };
+
+    $scope.open2 = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/modal_example2.html',
+            controller: ModalInstanceCtrl,
+            windowClass: "animated fadeIn"
+        });
+    };
+
+    $scope.open3 = function (size) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/modal_example3.html',
+            size: size,
+            controller: ModalInstanceCtrl
+        });
+    };
+
+    $scope.open4 = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'views/modal_example2.html',
+            controller: ModalInstanceCtrl,
+            windowClass: "animated flipInY"
+        });
+    };
+};
+
+/**
+ * ionSlider - Controller for data for Ion Slider plugin
+ * used in Advanced plugin view
+ */
+function ionSlider() {
+}
+
+/**
+ * wizardCtrl - Controller for wizard functions
+ * used in Wizard view
+ */
+function wizardCtrl($scope, $rootScope) {
+    // All data will be store in this object
+    $scope.formData = {};
+
+    // After process wizard
+    $scope.processForm = function() {
+        alert('Wizard completed');
+    };
+
+}
+
+/**
+ * chartJsCtrl - Controller for data for ChartJs plugin
+ * used in Chart.js view
+ */
+function chartJsCtrl() {
+
+}
+
+/**
+raciTeam - Controller for RACI Team (teams_board) View
+*/
+function raciTeam($scope, $http,$uibModal,$stateParams,filterService,$filter,tasksService) {
+    
+}
+
+/**
+ * userProfile - Controller for User Profile
+ */
+function userProfile($scope,authenticationService,USER_ROLES,Config,userService) {
+    var userData = null, isAuthorizedUser = false, userProfile = null;
+    if (sessionStorage.userData != null) {
+        userData = JSON.parse(sessionStorage.userData);    
+        if (userData != null) {
+            if (!userData.isAuthenticated) {
+                userData = null;
+            }
+        }
+    }
+    
+    if (userData == null) {
+            userData = authenticationService.getUserData();
+            sessionStorage.userData = JSON.stringify(userData);
+    }
+    
+    $scope.userName = userData.username; 
+    $scope.userRoles = USER_ROLES;    
+    $scope.currentUser = userService.getUserProfile(userData.bearerToken);
+    $scope.currentUser.then (function (response) {
+        $scope.userProfile = response.data;
+        // alert($scope.userProfile);
+        console.log($scope.userProfile);
+        sessionStorage.userProfile = JSON.stringify($scope.userProfile);
+        $scope.currentUserRoles = $scope.userProfile.roles.join();
+    });
+ if(sessionStorage.userProfile != null) {
+     $scope.currentUserProfile = JSON.parse(sessionStorage.userProfile);
+     if($scope.currentUserProfile != null)
+         {
+             if($scope.currentUserProfile.roles != null)
+                 $scope.currentUserRoles = $scope.currentUserProfile.roles.join();
+         }
+     
+ }
+    else
+        {
+            $scope.currentUserRoles = 'none';
+        } 
+    $scope.isAuthorized = function (authorizedRoles) {
+       // alert(authorizedRoles);
+        isAuthorizedUser = false;
+                if (!angular.isArray(authorizedRoles)) {
+                  authorizedRoles = [authorizedRoles];
+                }
+//        alert(userData.userRole);
+//        var val = userData.isAuthenticated && authorizedRoles.indexOf(userData.userRole) !== -1 ;
+//        alert(val);
+  //      alert(authorizedRoles);
+        if(userData.isAuthenticated) {
+            if(sessionStorage.userProfile != null)
+                {
+           var userProfile = JSON.parse(sessionStorage.userProfile); 
+                    if(userProfile != null)
+                        {
+            angular.forEach(userProfile.roles, function (item) {
+                if(authorizedRoles.indexOf(item) !== -1) {
+                    isAuthorizedUser = true;
+                }
+            });
+                        }
+                }
+        }
+        //alert(isAuthorizedUser);
+        return(isAuthorizedUser)
+    };
+    $scope.oldMagpieBaseLink = Config.oldTroutBaseURL + $scope.userName + "&id=B1AB60A1-BB56-4CC3-B4A2-85833C278C08";
+    console.log($scope.oldMagpieBaseLink);
+}
+
+/**
+ * oldMagpieApp - Controller for Old Magpie App
+ */
+function oldMagpieApp($scope,Config) {
+    var userName;
+    
+    if (!angular.isUndefined($scope.userName))
+    {
+        if ($scope.userName.length > 0 ) {
+            userName = $scope.userName;
+        }
+    }
+    
+    if (angular.isUndefined(userName)) {
+        if (sessionStorage.userData != null) {
+            userData = JSON.parse(sessionStorage.userData);    
+            if (userData != null) {
+                userName =  userData.username;
+            }
+        }    
+    }        
+   
 }
 
 /* login Controller */
