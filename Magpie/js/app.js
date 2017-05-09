@@ -115,13 +115,13 @@
                         if (!promise) {
                             // $http returns a promise, which has a then function, which also returns a promise
                             promise = $http.get('test.json').then(function (response) {
-                            // The then function here is an opportunity to modify the response
-//                                console.log(response);
-                                // The return value gets picked up by the then in the controller.
+                                //The then function here is an opportunity to modify the response
+                                //console.log(response);
+                                //The return value gets picked up by the then in the controller.
                                 return response.data;
                             });
                         }
-                                  // Return the promise to the controller
+                        // Return the promise to the controller
                         return promise;
                     }
                 };
@@ -159,7 +159,7 @@
                 var  promise;
                 promise = $http.get(Config.baseURL + 'WorkingSets');
                 return promise.then(function (data) {
-                    //  alert(data);
+                    //alert(data);
                     return data;
                 });
             };
@@ -178,7 +178,7 @@
                     if (item.workingSetId == id) {
                         angular.forEach(item.workingSetTemplate.controlSets, function (controlSet) {
                             catalogue.push(controlSet);
-//                           alert(catalogue);
+                            //alert(catalogue);
                         });
                     }
                 });
@@ -193,7 +193,7 @@
                     promise;
                 promise = $http.get(url);
                 return promise.then(function (data) {
-                    //  alert(data);
+                    //alert(data);
                     return data;
                 });
             };
@@ -355,19 +355,19 @@
         .filter('numberOfTasksByFilterName', [function ($filter) {
             return function (inputArray, filter) {
                 var count = 0;
-                    //taskTitle = filterName.Params.Name, dueStatus = filterName.Params.DueStatus, responsibleUserName = filterName.Params.AssignedTo;
+                //taskTitle = filterName.Params.Name, dueStatus = filterName.Params.DueStatus, responsibleUserName = filterName.Params.AssignedTo;
                 if (filter.FilterName === 'No Filter') {
                     angular.forEach(inputArray, function (item) {
                         count += 1;
                     });
                 } else if (filter.FilterName === 'Unassigned') {
                     angular.forEach(inputArray, function (item) {
-//                        if(item.ResponsibleUser !== ((angular.isUndefined(filter.ResponsibleUserId)) || filter.ResponsibleUserId === null ))
+                        //if(item.ResponsibleUser !== ((angular.isUndefined(filter.ResponsibleUserId)) || filter.ResponsibleUserId === null ))
                         count += 1;
                     });
                 } else {
                     angular.forEach(inputArray, function (item) {
-//                         if(item.DueStatus.Status !== ((angular.isUndefined(filter.DueStatusId)) || filter.DueStatusId === null ))
+                        //if(item.DueStatus.Status !== ((angular.isUndefined(filter.DueStatusId)) || filter.DueStatusId === null ))
                         count += 1;
                     });
                 }
@@ -414,32 +414,30 @@
                 if (wordwise) {
                     var lastspace = value.lastIndexOf(' ');
                     if (lastspace !== -1) {
-                  //Also remove . and , so its gives a cleaner result.
+                        //Also remove . and , so its gives a cleaner result.
                         if (value.charAt(lastspace - 1) === '.' || value.charAt(lastspace - 1) === ',') {
                             lastspace = lastspace - 1;
                         }
                         value = value.substr(0, lastspace);
                     }
                 }
-
                 return value + (tail || ' …');
             };
         })
         .filter('newComment', ['$filter', function ($filter) {
             return function (items, controlCatalogueId) {
-
                 var filtered = [];
                 if (angular.isUndefined(controlCatalogueId) || controlCatalogueId === null) {
                     filtered = items;
                 } else {
                     angular.forEach(items, function (item) {
-//                        alert(item.id);
+                        //alert(item.id);
                         if (item.id === controlCatalogueId) {
                             filtered.push(item);
                         }
                     });
                 }
-                alert(filtered.text);
+                //alert(filtered.text);
                 return filtered;
             };
         }])
@@ -452,11 +450,10 @@
                         }
                     });
                 return promise.then(function (data) {
-                    //  alert(data.data.userName);
+                    //alert(data.data.userName);
                     return data;
                 });
             };
-            
         }])
         .service('authenticationService', ['$http', 'Config', function ($http, Config) {
             function NoAuthenticationException(message) {
@@ -484,11 +481,10 @@
                 expirationDate: null,
                 userRole: 'admin'
             };
-
-//            var nextState = {
-//                name: '',
-//                error: ''
-//            };
+            //var nextState = {
+            //name: '',
+            //error: ''
+            //};
 
             function isAuthenticationExpired(expirationDate) {
                 var now = new Date();
@@ -505,7 +501,7 @@
 
             function saveData() {
                 removeData();
-            //    $cookies.put('auth_data', userData);
+                //$cookies.put('auth_data', userData);
             }
             
             function setHttpAuthHeader() {
@@ -530,19 +526,19 @@
                 return true;
             },
                 isAuthenticated = function () {
-//                    alert(userData.isAuthenticated);
-//                    alert(isAuthenticationExpired(userData.expirationDate));
+                    //alert(userData.isAuthenticated);
+                    //alert(isAuthenticationExpired(userData.expirationDate));
                     if (userData.isAuthenticated && isAuthenticationExpired(userData.expirationDate)) {
                         return true;
                     } else {
                         return false;
                     }
-//                try {
-//                    retrieveSavedData();
-//                } catch (e) {
-//                    throw new NoAuthenticationException('Authentication not found');
-//                }
-//                return true;            
+                    //try {
+                    //retrieveSavedData();
+                    //} catch (e) {
+                    //throw new NoAuthenticationException('Authentication not found');
+                    //}
+                    //return true;
                 };
  
             function clearUserData() {
@@ -646,7 +642,7 @@
                 go = function (fallback) {
                     this.authorized = true;
                     var targetState = this.memorizedState ? this.memorizedState : fallback;
-//                    alert('targetState===' + targetState);
+                    //alert('targetState===' + targetState);
                     $state.go(targetState, this.params);
                 };
             return {
