@@ -1405,7 +1405,7 @@ function oldMagpieApp($scope,Config) {
 
 
 /**
- * sideBarAgileBoard - Controller for sidebar-agile Board
+ * sideBarAgileBoard - Controller for sidebar-task Board
  */
 function sideBar($scope, $http,$uibModal,$stateParams,filterService,$filter,tasksService,filterWebAPIService,dataService,$timeout) {
     $scope.initializing = true;
